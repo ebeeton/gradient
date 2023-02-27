@@ -1,3 +1,3 @@
 # gradient
 
-A gradient that can be used to generate an array of colors of arbitrary size.
+A gradient that can generate slices of `color.RGBA` of arbitrary size.
