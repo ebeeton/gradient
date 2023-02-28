@@ -8,11 +8,23 @@ import (
 	"testing"
 )
 
-func TestColorFromHex(t *testing.T) {
+func TestColorFromHexRGB(t *testing.T) {
 	hexColor := "#eb4034"
 	want := color.RGBA{R: 235, G: 64, B: 52, A: 255}
 
-	got, err := colorFromHex(hexColor)
+	got, err := ColorFromHex(hexColor)
+	if err != nil {
+		t.Error(err.Error())
+	} else if want != got {
+		t.Errorf("Got %v, want %v.", got, want)
+	}
+}
+
+func TestColorFromHexRGBA(t *testing.T) {
+	hexColor := "#eb403480"
+	want := color.RGBA{R: 235, G: 64, B: 52, A: 128}
+
+	got, err := ColorFromHex(hexColor)
 	if err != nil {
 		t.Error(err.Error())
 	} else if want != got {
@@ -23,7 +35,7 @@ func TestColorFromHex(t *testing.T) {
 func TestColorFromHexError(t *testing.T) {
 	hexColor := "#eb403"
 
-	_, err := colorFromHex(hexColor)
+	_, err := ColorFromHex(hexColor)
 	if err == nil {
 		t.Error("Want error, got nil.")
 	}

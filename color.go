@@ -10,19 +10,35 @@ import (
 	"strings"
 )
 
-func colorFromHex(h string) (color.RGBA, error) {
+const (
+	rgbByteLen  = 3
+	rgbaByteLen = 4
+)
+
+// ColorFromHex converts a hex color string of the form #RRGGBB or #RRGGBBAA to
+// a color.RGBA. If the former is provided alpha defaults to 255.
+func ColorFromHex(h string) (color.RGBA, error) {
 	data, err := hex.DecodeString(strings.Trim(h, "#"))
 	if err != nil {
 		return color.RGBA{}, err
-	} else if len(data) != 3 {
-		return color.RGBA{}, errors.New("argument must be six hex characters")
+	} else if len(data) == rgbByteLen {
+		return color.RGBA{
+			R: data[0],
+			G: data[1],
+			B: data[2],
+			A: math.MaxUint8,
+		}, nil
+	} else if len(data) == rgbaByteLen {
+		return color.RGBA{
+			R: data[0],
+			G: data[1],
+			B: data[2],
+			A: data[3],
+		}, nil
+	} else {
+		return color.RGBA{}, errors.New("argument must be six or eight hex " +
+			"characters")
 	}
-	return color.RGBA{
-		R: data[0],
-		G: data[1],
-		B: data[2],
-		A: math.MaxUint8,
-	}, nil
 }
 
 func linearInterpolate(first, second color.RGBA, pos float64) color.RGBA {
