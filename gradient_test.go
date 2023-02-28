@@ -9,17 +9,17 @@ import (
 )
 
 func TestGetGradient(t *testing.T) {
+	black := color.RGBA{R: 0, G: 0, B: 0, A: math.MaxUint8}
+	grey := color.RGBA{R: math.MaxUint8 >> 1, G: math.MaxUint8 >> 1, B: math.MaxUint8 >> 1, A: math.MaxUint8}
+	white := color.RGBA{R: math.MaxUint8, G: math.MaxUint8, B: math.MaxUint8, A: math.MaxUint8}
+
 	stops := []Stop{
-		{Color: "#000000", Position: 0.0},
-		{Color: "#FFFFFF", Position: 1.0},
+		{Color: black, Position: 0.0},
+		{Color: white, Position: 1.0},
 	}
 
 	wantStops := 3
 	g := GetGradient(stops, wantStops)
-
-	black := color.RGBA{R: 0, G: 0, B: 0, A: math.MaxUint8}
-	grey := color.RGBA{R: math.MaxUint8 >> 1, G: math.MaxUint8 >> 1, B: math.MaxUint8 >> 1, A: math.MaxUint8}
-	white := color.RGBA{R: math.MaxUint8, G: math.MaxUint8, B: math.MaxUint8, A: math.MaxUint8}
 
 	if len(g) != wantStops {
 		t.Errorf("Got stops %d, want %d.", len(g), wantStops)
@@ -34,8 +34,8 @@ func TestGetGradient(t *testing.T) {
 
 func TestGetInterpolatedColor(t *testing.T) {
 	table := gradientTable{
-		stop{col: color.RGBA{R: 0, G: 0, B: 0, A: 255}, pos: 0},
-		stop{col: color.RGBA{R: 255, G: 255, B: 255, A: 255}, pos: 1},
+		Stop{Color: color.RGBA{R: 0, G: 0, B: 0, A: 255}, Position: 0},
+		Stop{Color: color.RGBA{R: 255, G: 255, B: 255, A: 255}, Position: 1},
 	}
 	want := color.RGBA{R: 127, G: 127, B: 127, A: 255}
 
