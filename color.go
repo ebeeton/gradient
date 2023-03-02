@@ -5,6 +5,7 @@ package gradient
 import (
 	"encoding/hex"
 	"errors"
+	"fmt"
 	"image/color"
 	"math"
 	"strings"
@@ -39,6 +40,16 @@ func ColorFromHex(h string) (color.RGBA, error) {
 		return color.RGBA{}, errors.New("argument must be six or eight hex " +
 			"characters")
 	}
+}
+
+// ColorToHex converts a color.RGBA to a hex color string of the form #RRGGBB or
+// #RRGGBBAA depending on the alpha parameter.
+func ColorToHex(c color.RGBA, alpha bool) string {
+	if alpha {
+		return fmt.Sprintf("#%x%x%x%x", c.R, c.G, c.B, c.A)
+	}
+
+	return fmt.Sprintf("#%x%x%x", c.R, c.G, c.B)
 }
 
 func linearInterpolate(first, second color.RGBA, pos float64) color.RGBA {
