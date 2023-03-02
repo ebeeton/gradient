@@ -32,6 +32,26 @@ func TestColorFromHexRGBA(t *testing.T) {
 	}
 }
 
+func TestColorToHexRGB(t *testing.T) {
+	color := color.RGBA{R: 54, G: 255, B: 67, A: 43}
+	want := "#36ff43"
+
+	got := ColorToHex(color, false)
+	if want != got {
+		t.Errorf("Got %s, want %s.", got, want)
+	}
+}
+
+func TestColorToHexRGBA(t *testing.T) {
+	color := color.RGBA{R: 17, G: 37, B: 167, A: 77}
+	want := "#1125a74d"
+
+	got := ColorToHex(color, true)
+	if want != got {
+		t.Errorf("Got %s, want %s.", got, want)
+	}
+}
+
 func TestColorFromHexError(t *testing.T) {
 	hexColor := "#eb403"
 
