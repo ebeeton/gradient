@@ -8,9 +8,18 @@ import (
 )
 
 func TestGetGradient(t *testing.T) {
+	opaqueGreen, err := ColorFromHex("#00FF00FF")
+	if err != nil {
+		panic(err)
+	}
+	transparentMagenta, err := ColorFromHex("#FF00FF00")
+	if err != nil {
+		panic(err)
+	}
+
 	stops := []Stop{
-		{Color: color.RGBA{R: 0, G: 255, B: 0, A: 255}, Position: 0.0},
-		{Color: color.RGBA{R: 255, G: 0, B: 255, A: 0}, Position: 1.0},
+		{Color: opaqueGreen, Position: 0.0},
+		{Color: transparentMagenta, Position: 1.0},
 	}
 	wantColors := []string{
 		"#00ff00ff",
