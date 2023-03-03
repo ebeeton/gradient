@@ -46,10 +46,10 @@ func ColorFromHex(h string) (color.RGBA, error) {
 // #RRGGBBAA depending on the alpha parameter.
 func ColorToHex(c color.RGBA, alpha bool) string {
 	if alpha {
-		return fmt.Sprintf("#%x%x%x%x", c.R, c.G, c.B, c.A)
+		return fmt.Sprintf("#%02x%02x%02x%02x", c.R, c.G, c.B, c.A)
 	}
 
-	return fmt.Sprintf("#%x%x%x", c.R, c.G, c.B)
+	return fmt.Sprintf("#%02x%02x%02x", c.R, c.G, c.B)
 }
 
 func linearInterpolate(first, second color.RGBA, pos float64) color.RGBA {
