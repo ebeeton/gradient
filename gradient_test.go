@@ -4,31 +4,46 @@ package gradient
 
 import (
 	"image/color"
-	"math"
 	"testing"
 )
 
 func TestGetGradient(t *testing.T) {
-	black := color.RGBA{R: 0, G: 0, B: 0, A: math.MaxUint8}
-	grey := color.RGBA{R: math.MaxUint8 >> 1, G: math.MaxUint8 >> 1, B: math.MaxUint8 >> 1, A: math.MaxUint8}
-	white := color.RGBA{R: math.MaxUint8, G: math.MaxUint8, B: math.MaxUint8, A: math.MaxUint8}
-
-	stops := []Stop{
-		{Color: black, Position: 0.0},
-		{Color: white, Position: 1.0},
+	opaqueGreen, err := ColorFromHex("#00FF00FF")
+	if err != nil {
+		panic(err)
+	}
+	transparentMagenta, err := ColorFromHex("#FF00FF00")
+	if err != nil {
+		panic(err)
 	}
 
-	wantStops := 3
+	stops := []Stop{
+		{Color: opaqueGreen, Position: 0.0},
+		{Color: transparentMagenta, Position: 1.0},
+	}
+	wantColors := []string{
+		"#00ff00ff",
+		"#1fdf1fdf",
+		"#3fbf3fbf",
+		"#5f9f5f9f",
+		"#7f7f7f7f",
+		"#9f5f9f5f",
+		"#bf3fbf3f",
+		"#df1fdf1f",
+		"#ff00ff00",
+	}
+	wantStops := 9
 	g := GetGradient(stops, wantStops)
 
 	if len(g) != wantStops {
 		t.Errorf("Got stops %d, want %d.", len(g), wantStops)
-	} else if g[0] != black {
-		t.Errorf("Got black %v, want %v.", g[0], black)
-	} else if g[1] != grey {
-		t.Errorf("Got grey %v, want %v.", g[1], grey)
-	} else if g[2] != white {
-		t.Errorf("Got white %v, want %v.", g[2], white)
+	}
+
+	for i, c := range g {
+		var gotHex = ColorToHex(c, true)
+		if gotHex != wantColors[i] {
+			t.Errorf("Got %s, want %s.", gotHex, wantColors[i])
+		}
 	}
 }
 

@@ -33,8 +33,8 @@ func TestColorFromHexRGBA(t *testing.T) {
 }
 
 func TestColorToHexRGB(t *testing.T) {
-	color := color.RGBA{R: 54, G: 255, B: 67, A: 43}
-	want := "#36ff43"
+	color := color.RGBA{R: 4, G: 255, B: 67, A: 43}
+	want := "#04ff43"
 
 	got := ColorToHex(color, false)
 	if want != got {
