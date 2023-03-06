@@ -41,3 +41,15 @@ func main() {
 	}
 }
 ```
+
+Output:
+
+#00ff00ff
+#1fdf1fdf
+#3fbf3fbf
+#5f9f5f9f
+#7f7f7f7f
+#9f5f9f5f
+#bf3fbf3f
+#df1fdf1f
+#ff00ff00
