@@ -4,8 +4,8 @@
 
 A gradient that can generate slices of `color.RGBA` of arbitrary size.
 
-A sample program that parses two colors from hex strings and uses
-them to generate a gradient of nine colors:
+The sample program below parses two colors from hex strings and uses them to
+generate a gradient of nine colors.
 
 ```go
 package main
@@ -44,6 +44,7 @@ func main() {
 
 Output:
 
+```
 #00ff00ff
 #1fdf1fdf
 #3fbf3fbf
@@ -53,3 +54,4 @@ Output:
 #bf3fbf3f
 #df1fdf1f
 #ff00ff00
+```
